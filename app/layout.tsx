@@ -15,11 +15,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const { darkMode, toggleDarkMode } = useDarkModeStore();
+  const setDarkMode = useDarkModeStore((state) => state.setDarkMode);
+
+  useEffect(() =>{
+    const storedTheme = localStorage.getItem("darkMode");
+    if (storedTheme) {
+      setDarkMode(JSON.parse(storedTheme));
+    }
+  }, [setDarkMode])
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("darkMode");
-    if (storedTheme) useDarkModeStore.setState({ darkMode: JSON.parse(storedTheme) });
-  }, []);
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    // Only set if localStorage hasn't been set (optional logic)
+    if (localStorage.getItem("darkMode") === null) {
+      setDarkMode(mediaQuery.matches);
+    }
+
+     // Listen for changes
+    const handler = (e: MediaQueryListEvent) => {
+      setDarkMode(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, [setDarkMode]);
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -31,7 +52,7 @@ export default function RootLayout({
         <title>E - commerce app</title>
         <meta name="description" content="A modern e-commerce app" />
       </Head>
-      <body className={darkMode ? "" : "bg-night"}>
+      <body className={darkMode ? "bg-black text-white" : "bg-white text-black"}>
         {/* Navbar component for navigation */}
         <Navbar />
         <main className="container mx-auto p-6">{children}</main>
@@ -39,10 +60,10 @@ export default function RootLayout({
           <button 
             onClick={toggleDarkMode}
             className={`shadow-lg px-4 py-2 rounded-full ${
-              darkMode ? "bg-night-50 text-white" : "bg-white text-night"
+              darkMode ? "bg-white text-night" : "bg-night-50 text-white" 
             }`}
           >
-            {darkMode ? <BiMoon /> : <BiSun />}
+            {darkMode ? <BiSun /> : <BiMoon />  }
           </button>
         </div>
       </body>

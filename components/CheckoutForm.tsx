@@ -28,22 +28,22 @@ const CheckoutForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} className={`p-4 border rounded-lg`}>
-        <h2 className={`text-xl font-bold ${darkMode ? "text-black": "text-white"}`}>Shipping Details</h2>
-        <input type="text" placeholder="Name" className={`w-full p-2 my-2 border rounded ${darkMode ? '': 'text-white bg-night'}`} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+        <h2 className={`text-xl font-bold ${darkMode ? "text-white" : "text-black"}`}>Shipping Details</h2>
+        <input type="text" placeholder="Name" className={`w-full p-2 my-2 border rounded ${darkMode ?'text-white bg-night': 'text-night bg-white'}`} onChange={(e) => setForm({ ...form, name: e.target.value })} />
         {errors.name && <p className="text-red-500">{errors.name}</p>}
-        <input type="text" placeholder="Address" className={`w-full p-2 my-2 border rounded ${darkMode ? '': 'text-white bg-night'}`} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+        <input type="text" placeholder="Address" className={`w-full p-2 my-2 border rounded ${darkMode ?'text-white bg-night': 'text-night bg-white'}`} onChange={(e) => setForm({ ...form, address: e.target.value })} />
         {errors.address && <p className="text-red-500">{errors.address}</p>}
-        <input type="tel" placeholder="Phone" className={`w-full p-2 my-2 border rounded ${darkMode ? '': 'text-white bg-night'}`} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+        <input type="tel" placeholder="Phone" className={`w-full p-2 my-2 border rounded ${darkMode ?'text-white bg-night': 'text-night bg-white'}`} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
         {errors.phone && <p className="text-red-500">{errors.phone}</p>}
-        <input type="email" placeholder="Email" className={`w-full p-2 my-2 border rounded ${darkMode ? '': 'text-white bg-night'}`} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+        <input type="email" placeholder="Email" className={`w-full p-2 my-2 border rounded ${darkMode ?'text-white bg-night': 'text-night bg-white'}`} onChange={(e) => setForm({ ...form, email: e.target.value })} />
         {errors.email && <p className="text-red-500">{errors.email}</p>}
         <button type="submit" className="w-full bg-green-500 text-white p-2 rounded mt-4">Complete Purchase</button>
       </form>
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className={`p-6 rounded shadow-lg ${darkMode ? "bg-white" : "bg-night"}`}>
-            <div className={darkMode? "text-black": "text-white"}>
+          <div className={`p-6 rounded shadow-lg ${darkMode ? "bg-night": "bg-white"}`}>
+            <div className={darkMode? "text-white": "text-night"}>
                <h2 className="text-lg font-bold">Confirm Checkout</h2>
               <p>Are you sure you want to complete this purchase?</p>
             </div>

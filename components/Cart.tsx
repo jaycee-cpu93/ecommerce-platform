@@ -11,7 +11,7 @@ const Cart = () => {
   const total = cart.reduce((sum, product) => sum + product.price, 0);
  
   return (
-    <div className={`p-4 border rounded-lg ${darkMode? "text-black": "text-white"}`}>
+    <div className={`p-4 border rounded-lg ${darkMode? "text-white": "text-night"}`}>
       <h2 className="text-xl font-bold">Shopping Cart</h2>
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
